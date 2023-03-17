@@ -30,14 +30,14 @@ function App() {
         <Side />
         <div className="content-container">
           <Routes>
-            <Route path="/student" element={<Student rows={rows} />} />
+            <Route path="/student" element={<Student  />} />
             <Route path="/teacher" element={<Teacher />} />
             <Route path="/courses" element={<Courses />} />
             <Route
               path="/new-student"
               element={<AddNewStudent onSubmit={onSubmit} />}
             />
-            <Route path="/student/edit" element={<EditStudent />} />
+            <Route path="/student/edit" element={<EditStudent  />} />
           </Routes>
         </div>
       </div>

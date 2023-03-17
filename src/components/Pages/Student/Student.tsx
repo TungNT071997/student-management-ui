@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 
 
-function Student({ rows }: { rows: any }) {
+function Student() {
   const navigate = useNavigate();
   return (
     <div style={{ height: 700, width: '100%' }}>
