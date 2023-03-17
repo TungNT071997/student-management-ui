@@ -1,26 +1,8 @@
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+
 import './style.scss';
 import { Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-const columns: GridColDef[] = [
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 90,
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params: GridValueGetterParams) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-  },
-];
+import { Link, useNavigate } from 'react-router-dom';
+
 
 function Student({ rows }: { rows: any }) {
   const navigate = useNavigate();
@@ -30,8 +12,44 @@ function Student({ rows }: { rows: any }) {
       <Button variant="contained" onClick={() => navigate('/new-student')}>
         Add new
       </Button>
-      <DataGrid rows={rows} columns={columns} />
+      <table className="table mt-8" >
+    <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">FirstName</th>
+                <th scope="col">LastName</th>
+                <th scope="col" >PhoneNumber</th>
+                <th scope="col" >Birth of Day</th>
+                <th scope="col" >Address</th>
+                <th></th>
+            </tr>
+    </thead>
+    <tbody>
+       
+            <tr>
+                <th scope="row">1</th>
+                <td>tung thanh</td>
+                <td>nguyen</td>
+                <td>0352502957</td>
+                <td>21/07/1997</td>
+                <td>tphcm</td>
+                <td>
+                
+                    <Link to={"/student/edit"} className="btn btn-link">sửa</Link>
+                    <a href="" className="btn btn-link" data-toggle="modal" data-id="id" data-target="#delete-student-modal">xóa</a>
+                    
+                </td>
+            </tr>
+       
+    </tbody>
+</table>
+
+
     </div>
+
+
+
   );
+  
 }
 export default Student;

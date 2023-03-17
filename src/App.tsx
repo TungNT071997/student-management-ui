@@ -7,6 +7,7 @@ import Teacher from './components/Pages/Teacher/Teacher';
 import Courses from './components/Pages/Courses/Courses';
 import AddNewStudent from './components/Pages/Student/AddNew';
 import { useState } from 'react';
+import EditStudent from './components/Pages/Student/EditStudent';
 function App() {
   const defaultRows = [
     { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
@@ -36,6 +37,7 @@ function App() {
               path="/new-student"
               element={<AddNewStudent onSubmit={onSubmit} />}
             />
+            <Route path="/student/edit" element={<EditStudent />} />
           </Routes>
         </div>
       </div>
