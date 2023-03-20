@@ -1,55 +1,76 @@
-
-import './style.scss';
+import * as React from 'react';
+import {
+  DataGrid,
+  GridColDef,
+  GridRenderCellParams,
+  GridValueGetterParams,
+} from '@mui/x-data-grid';
+import { useNavigate } from 'react-router-dom';
+import { useStudent } from './hooks/useStudent';
 import { Button } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { deleteStudent } from './apis/deleteStudent';
 
+const columns: GridColDef[] = [
+  { field: '_id', headerName: 'ID', width: 300 },
+  { field: 'firstName', headerName: 'First name', width: 130 },
+  { field: 'lastName', headerName: 'Last name', width: 130 },
+  {
+    field: 'age',
+    headerName: 'Age',
+    type: 'number',
+    width: 90,
+  },
+  {
+    field: 'fullName',
+    headerName: 'Full name',
+    description: 'This column has a value getter and is not sortable.',
+    sortable: false,
+    width: 160,
+    valueGetter: (params: GridValueGetterParams) =>
+      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+  },
+  {
+    field: 'actions',
+    headerName: 'Actions',
+    description: 'This column has a list of actions.',
+    sortable: false,
+    width: 160,
+    renderCell: (params) => {
+      return (
+        <strong>
+          <Button
+            variant="contained"
+            size="small"
+            style={{ marginLeft: 16 }}
+            onClick={() => {
+              deleteStudent(params.id as string);
+            }}
+          >
+            Delete
+          </Button>
+        </strong>
+      );
+    },
+  },
+];
 
 function Student() {
   const navigate = useNavigate();
+  const students: any = useStudent();
+
   return (
-    <div style={{ height: 700, width: '100%' }}>
-      <h1>Students</h1>
+    <>
       <Button variant="contained" onClick={() => navigate('/new-student')}>
-        Add new
+        AddNew
       </Button>
-      <table className="table mt-8" >
-    <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">FirstName</th>
-                <th scope="col">LastName</th>
-                <th scope="col" >PhoneNumber</th>
-                <th scope="col" >Birth of Day</th>
-                <th scope="col" >Address</th>
-                <th></th>
-            </tr>
-    </thead>
-    <tbody>
-       
-            <tr>
-                <th scope="row">1</th>
-                <td>tung thanh</td>
-                <td>nguyen</td>
-                <td>0352502957</td>
-                <td>21/07/1997</td>
-                <td>tphcm</td>
-                <td>
-                
-                    <Link to={"/student/edit"} className="btn btn-link">sửa</Link>
-                    <a href="" className="btn btn-link" data-toggle="modal" data-id="id" data-target="#delete-student-modal">xóa</a>
-                    
-                </td>
-            </tr>
-       
-    </tbody>
-</table>
-
-
-    </div>
-
-
-
+      <div style={{ height: 700, width: '100%' }}>
+        <DataGrid
+          rows={students}
+          columns={columns}
+          getRowId={(row) => row._id}
+        />
+      </div>
+    </>
   );
-  
 }
 export default Student;

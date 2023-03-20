@@ -1,8 +1,11 @@
 import { TextField, Grid, Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
-export default function AddNewStudent({ onSubmit }: { onSubmit: any }) {
+import { createStudent } from './apis/createStudent';
+export default function AddNewStudent() {
   const { register, handleSubmit } = useForm();
-
+  const onSubmit = (data: any) => {
+    createStudent(data);
+  };
   return (
     <div>
       <h1> Add New Student</h1>
