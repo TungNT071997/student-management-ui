@@ -1,1 +1,32 @@
 @import url(https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css);
+.student-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    .add-new-button {
+      margin-top: 16px;
+    }
+  
+    .datagrid-container {
+      height: 700px;
+      width: 100%;
+  
+      .actions-column {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+  
+        button {
+          margin-left: 16px;
+          background-color: #f44336;
+          color: white;
+  
+          &:hover {
+            background-color: #d32f2f;
+          }
+        }
+      }
+    }
+  }
+  

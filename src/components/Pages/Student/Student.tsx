@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './style.scss'
 import {
   DataGrid,
   GridColDef,
@@ -10,8 +11,9 @@ import { useStudent } from './hooks/useStudent';
 import { Button } from '@mui/material';
 import { deleteStudent } from './apis/deleteStudent';
 
+
 const columns: GridColDef[] = [
-  { field: '_id', headerName: 'ID', width: 300 },
+  { field: '_id', headerName: 'ID', width: 200 },
   { field: 'firstName', headerName: 'First name', width: 130 },
   { field: 'lastName', headerName: 'Last name', width: 130 },
   {
@@ -34,8 +36,9 @@ const columns: GridColDef[] = [
     headerName: 'Actions',
     description: 'This column has a list of actions.',
     sortable: false,
-    width: 160,
+    width: 200,
     renderCell: (params) => {
+      const navigate = useNavigate();
       return (
         <strong>
           <Button
@@ -47,6 +50,16 @@ const columns: GridColDef[] = [
             }}
           >
             Delete
+          </Button>
+          <Button
+            variant="contained"
+            size="small"
+            style={{ marginLeft: 16 }}
+            onClick={() => {
+              navigate(`/edit-student/${params.id}`);
+            }}
+          >
+            Edit
           </Button>
         </strong>
       );

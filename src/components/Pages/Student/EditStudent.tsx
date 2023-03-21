@@ -1,53 +1,77 @@
-export default function EditStudent() {
-  return (
-    <div className="mt-4">
-      <h3>Update Student</h3>
-      <form className="mt-4" method="POST">
-        <div className="form-group">
-          <label> firstName</label>
-          <input
-            type="text"
-            className="form-control"
-            value=""
-            id="name"
-            name="name"
-          />
-        </div>
-        <div className="form-group">
-          <label> lastName</label>
-          <input
-            type="text"
-            className="form-control"
-            value=""
-            id="name"
-            name="name"
-          />
-        </div>
-        <div className="form-group">
-          <label> Email</label>
-          <input
-            type="text"
-            className="form-control"
-            value=""
-            id="Email"
-            name="Email"
-          />
-        </div>
-        <div className="form-group">
-          <label>Phone</label>
-          <input
-            type="text"
-            className="form-control"
-            value=""
-            id="phone"
-            name="phone"
-          />
-        </div>
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate  } from 'react-router-dom';
+import {  updateStudent } from "./apis/updateStudent";
+import {  getAllStudent } from "./apis/getAllStudent";
 
-        <button type="submit" className="btn btn-primary">
-          Lưu lại
-        </button>
-      </form>
-    </div>
+
+
+export default function EditStudent() {
+  type Student = {
+    firstName: string;
+    lastName: string;
+    age: number;
+  };
+  // const Students: any = useStudent();
+  const { id } = useParams<{id : string}>() ;
+  const navigate = useNavigate();
+  const [student , setStudent] = useState<Student>({
+    firstName: '',
+    lastName: '',
+    age: 0,
+  })
+
+    useEffect(() => {
+      const fetchStudent = async () => {
+          const fetchedStudent : any = await getAllStudent(id);
+          setStudent(fetchedStudent );
+      };
+      fetchStudent();
+    },[id])
+    const handleSubmit = async (event : React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      await updateStudent(id as string, student);
+      navigate('/student')
+      
+    }
+    const handleInputChange = (
+      event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+      const { name, value } = event.target;
+      setStudent((pre) => ({ ...pre, [name]: value }));
+    };
+  return (
+    <div>
+    <h1>Edit Student</h1>
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="firstName">First Name:</label>
+        <input
+          type="text"
+          name="firstName"
+          value={student.firstName}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="lastName">Last Name:</label>
+        <input
+          type="text"
+          name="lastName"
+          value={student.lastName}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="age">Age:</label>
+        <input
+          type="number"
+          name="age"
+          value={student.age}
+          onChange={handleInputChange}
+        />
+      </div>
+      <button type="submit">Save</button>
+    </form>
+  </div>
   );
 }

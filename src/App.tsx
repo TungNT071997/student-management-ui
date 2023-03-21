@@ -19,7 +19,7 @@ function App() {
             <Route path="/teacher" element={<Teacher />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/new-student" element={<AddNewStudent />} />
-            <Route path="/edit-student" element={<EditStudent />} />
+            <Route path="/edit-student" element={<EditStudent/>} />
           </Routes>
         </div>
       </div>
