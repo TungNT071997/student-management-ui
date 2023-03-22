@@ -1,77 +1,87 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate  } from 'react-router-dom';
-import {  updateStudent } from "./apis/updateStudent";
-import {  getAllStudent } from "./apis/getAllStudent";
+import { Button, Grid, TextField } from '@mui/material';
+import { useEditStudent } from './hooks/useEditStudent';
+import { styled } from '@mui/material/styles';
 
+const StyledContainer = styled('div')({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
 
+export type Student = {
+  firstName: string;
+  lastName: string;
+  phoneNumber: number;
+  email: string;
+  dateOfBirth: string;
+  address: string;
+};
 
 export default function EditStudent() {
-  type Student = {
-    firstName: string;
-    lastName: string;
-    age: number;
-  };
-  // const Students: any = useStudent();
-  const { id } = useParams<{id : string}>() ;
-  const navigate = useNavigate();
-  const [student , setStudent] = useState<Student>({
-    firstName: '',
-    lastName: '',
-    age: 0,
-  })
+  const { handleSubmit, onSubmit, register } = useEditStudent();
 
-    useEffect(() => {
-      const fetchStudent = async () => {
-          const fetchedStudent : any = await getAllStudent(id);
-          setStudent(fetchedStudent );
-      };
-      fetchStudent();
-    },[id])
-    const handleSubmit = async (event : React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      await updateStudent(id as string, student);
-      navigate('/student')
-      
-    }
-    const handleInputChange = (
-      event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-      const { name, value } = event.target;
-      setStudent((pre) => ({ ...pre, [name]: value }));
-    };
   return (
-    <div>
-    <h1>Edit Student</h1>
-    <form onSubmit={handleSubmit}>
+    <StyledContainer>
       <div>
-        <label htmlFor="firstName">First Name:</label>
-        <input
-          type="text"
-          name="firstName"
-          value={student.firstName}
-          onChange={handleInputChange}
-        />
+        <h1> Edit Student</h1>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={8}>
+              <TextField
+                {...register('firstName')}
+                InputLabelProps={{ shrink: true }}
+                label="First Name"
+                variant="standard"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12} sm={8}>
+              <TextField
+                {...register('lastName')}
+                InputLabelProps={{ shrink: true }}
+                label="Last Name"
+                variant="standard"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12} sm={8}>
+              <TextField
+                {...register('phoneNumber')}
+                label="Phone Number"
+                variant="standard"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12} sm={8}>
+              <TextField
+                {...register('email')}
+                label="Email"
+                variant="standard"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12} sm={8}>
+              <TextField
+                {...register('dateOfBirth')}
+                label="date of birth"
+                variant="standard"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12} sm={8}>
+              <TextField
+                {...register('address')}
+                label="address"
+                variant="standard"
+                fullWidth
+              />
+            </Grid>
+          </Grid>
+          <Button type="submit" variant="contained">
+            Save
+          </Button>
+        </form>
       </div>
-      <div>
-        <label htmlFor="lastName">Last Name:</label>
-        <input
-          type="text"
-          name="lastName"
-          value={student.lastName}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="age">Age:</label>
-        <input
-          type="number"
-          name="age"
-          value={student.age}
-          onChange={handleInputChange}
-        />
-      </div>
-      <button type="submit">Save</button>
-    </form>
-  </div>
+    </StyledContainer>
   );
 }

@@ -6,8 +6,8 @@ import Student from './components/Pages/Student/Student';
 import Teacher from './components/Pages/Teacher/Teacher';
 import Courses from './components/Pages/Courses/Courses';
 import AddNewStudent from './components/Pages/Student/AddNew';
-import { useState } from 'react';
 import EditStudent from './components/Pages/Student/EditStudent';
+
 function App() {
   return (
     <BrowserRouter>
@@ -19,7 +19,7 @@ function App() {
             <Route path="/teacher" element={<Teacher />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/new-student" element={<AddNewStudent />} />
-            <Route path="/edit-student" element={<EditStudent/>} />
+            <Route path="/edit-student/:id" element={<EditStudent/>} />
           </Routes>
         </div>
       </div>
