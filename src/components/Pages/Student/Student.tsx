@@ -1,15 +1,12 @@
-import * as React from 'react';
-import './style.scss';
+import { Button } from '@mui/material';
 import {
   DataGrid,
-  GridColDef,
-  GridRenderCellParams,
-  GridValueGetterParams,
+  GridColDef, GridValueGetterParams
 } from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
-import { useStudent } from './hooks/useStudent';
-import { Button } from '@mui/material';
 import { deleteStudent } from './apis/deleteStudent';
+import { useStudent } from './hooks/useStudent';
+import './style.scss';
 
 function Student() {
   const navigate = useNavigate();

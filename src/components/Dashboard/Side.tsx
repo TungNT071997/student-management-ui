@@ -25,12 +25,12 @@ function Side() {
 
   return (
     <List
-      sx={{ width: '100%', maxWidth: 360, height: '100vh', bgcolor: blueGrey[500] }}
+      sx={{ width: '100%', maxWidth: 300, height: '100vh', bgcolor: blueGrey[300] }}
       component="nav"
       aria-labelledby="nested-list-subheader"
       subheader={
         <ListSubheader component="div" id="nested-list-subheader">
-          <h1>STUDENT MANAGEMENT</h1>
+          <h3>STUDENT MANAGEMENT</h3>
         </ListSubheader>
       }
       className='container'
